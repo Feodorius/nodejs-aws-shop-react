@@ -21,7 +21,7 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import Box from "@mui/material/Box";
-import { useQueries } from "react-query";
+import { useQueries } from "@tanstack/react-query";
 import { useInvalidateOrder, useUpdateOrderStatus } from "~/queries/orders";
 
 type FormValues = {
@@ -31,24 +31,26 @@ type FormValues = {
 
 export default function PageOrder() {
   const { id } = useParams<{ id: string }>();
-  const results = useQueries([
-    {
-      queryKey: ["order", { id }],
-      queryFn: async () => {
-        const res = await axios.get<Order>(`${API_PATHS.order}/order/${id}`);
-        return res.data;
+  const results = useQueries({
+    queries: [
+      {
+        queryKey: ["order", { id }],
+        queryFn: async () => {
+          const res = await axios.get<Order>(`${API_PATHS.order}/order/${id}`);
+          return res.data;
+        },
       },
-    },
-    {
-      queryKey: "products",
-      queryFn: async () => {
-        const res = await axios.get<AvailableProduct[]>(
-          `${API_PATHS.bff}/product/available`
-        );
-        return res.data;
+      {
+        queryKey: ["products"],
+        queryFn: async () => {
+          const res = await axios.get<AvailableProduct[]>(
+            `${API_PATHS.bff}/product/available`
+          );
+          return res.data;
+        },
       },
-    },
-  ]);
+    ],
+  });
   const [
     { data: order, isLoading: isOrderLoading },
     { data: products, isLoading: isProductsLoading },
@@ -58,7 +60,9 @@ export default function PageOrder() {
   const cartItems: CartItem[] = React.useMemo(() => {
     if (order && products) {
       return order.items.map((item: OrderItem) => {
-        const product = products.find((p) => p.id === item.productId);
+        const product = (products as AvailableProduct[]).find(
+          (p: AvailableProduct) => p.id === item.productId
+        );
         if (!product) {
           throw new Error("Product not found");
         }
@@ -155,7 +159,7 @@ export default function PageOrder() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {statusHistory.map((statusHistoryItem) => (
+          {statusHistory.map((statusHistoryItem: { status: OrderStatus; timestamp: number; comment?: string }) => (
               <TableRow key={order.id}>
                 <TableCell component="th" scope="row">
                   {statusHistoryItem.status.toUpperCase()}
