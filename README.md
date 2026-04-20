@@ -1,5 +1,22 @@
 # React-shop-cloudfront
 
+## Task 2 Deployment Links
+
+CloudFront - https://d20oxbr30vtw1y.cloudfront.net                                  |
+S3 Bucket  - https://awsshopstack-shopbucket86a369b0-flhsrl1wy4he.s3.eu-north-1.amazonaws.com (returns 403 — access via CloudFront only)
+
+## Deployment
+
+```bash
+# Build and deploy to AWS (S3 + CloudFront)
+npm run cdk:deploy
+
+# Destroy all AWS infrastructure
+npm run cdk:destroy
+```
+
+---
+
 This is frontend starter project for nodejs-aws mentoring program. It uses the following technologies:
 
 - [Vite](https://vitejs.dev/) as a project bundler

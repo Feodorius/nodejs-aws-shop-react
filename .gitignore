@@ -13,6 +13,8 @@ coverage
 dist
 dist-ssr
 *.local
+cdk/cdk.out
+cdk/dist
 
 # Editor directories and files
 .vscode/*
