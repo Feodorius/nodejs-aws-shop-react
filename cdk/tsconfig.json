@@ -12,7 +12,8 @@
     "outDir": "./dist",
     "rootDir": "./lib",
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["node"]
   },
   "exclude": ["node_modules", "cdk.out"]
 }
