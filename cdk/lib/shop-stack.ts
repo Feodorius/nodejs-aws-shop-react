@@ -52,6 +52,11 @@ export class AWSShopStack extends cdk.Stack {
       description: "CloudFront Distribution URL",
     });
 
+    new cdk.CfnOutput(this, "S3BucketURL", {
+      value: `https://${siteBucket.bucketName}.s3.${this.region}.amazonaws.com`,
+      description: "S3 Bucket URL (should return 403)",
+    });
+
     new cdk.CfnOutput(this, "BucketName", {
       value: siteBucket.bucketName,
       description: "S3 Bucket Name",
