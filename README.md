@@ -2,10 +2,8 @@
 
 ## Task 2 Deployment Links
 
-| Service | URL |
-|---|---|
-| CloudFront | https://REPLACE_WITH_CLOUDFRONT_URL |
-| S3 Bucket | https://REPLACE_WITH_S3_URL (returns 403 — access via CloudFront only) |
+CloudFront - https://d20oxbr30vtw1y.cloudfront.net                                  |
+S3 Bucket  - https://awsshopstack-shopbucket86a369b0-flhsrl1wy4he.s3.eu-north-1.amazonaws.com (returns 403 — access via CloudFront only)
 
 ## Deployment
 
