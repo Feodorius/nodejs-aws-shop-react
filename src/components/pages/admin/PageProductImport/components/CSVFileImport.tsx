@@ -55,7 +55,7 @@ export default function CSVFileImport({ url, title }: CSVFileImportProps) {
       console.log("uploadFile to", url);
 
       const response = await axios.get<string>(url, {
-        params: { name: encodeURIComponent(file.name) },
+        params: { name: file.name },
       });
 
       console.log("File to upload: ", file.name);
